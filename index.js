@@ -275,9 +275,7 @@ function nextQuestion() {
 function showResult() {
     // Sembunyikan box kuis dan progress bar atas
     document.getElementById("quiz-box").classList.add("hidden");
-    document
-        .getElementById("quiz-progress-container")
-        .classList.add("hidden");
+    document.getElementById("quiz-progress-container").classList.add("hidden");
 
     const resultBox = document.getElementById("result-box");
     resultBox.classList.remove("hidden");
@@ -300,27 +298,39 @@ function showResult() {
     // MEMASTIKAN ELEMEN ANALITIK TERISI DATA RIIL
     document.getElementById("stat-correct").innerText = score;
     document.getElementById("stat-wrong").innerText = wrongAnswers;
-    document.getElementById("stat-accuracy").innerText =
-        `${accuracyPercent}%`;
+    document.getElementById("stat-accuracy").innerText = `${accuracyPercent}%`;
 
     // 4. Memicu Animasi Pengisian Cincin Sirkular SVG (Keliling = 440)
     const ringElement = document.getElementById("result-stroke-ring");
-    const strokeDashoffsetValue = 440 - (440 * finalScore) / 100;
+    
+    if (ringElement) {
+        // [PENTING] Paksa definisi stroke-dasharray & beri transisi CSS langsung via JS agar kompatibel di HP
+        ringElement.style.strokeDasharray = "440";
+        ringElement.style.strokeDashoffset = "440"; // Mulai dari kosong
+        ringElement.style.transition = "stroke-dashoffset 1s ease-in-out, stroke 0.5s ease";
 
-    // Ubah warna cincin ring mengikuti kesuksesan nilai skor
-    if (finalScore === 100) {
-        ringElement.style.stroke = "#10b981"; // Emerald / Hijau
-    } else if (finalScore >= 60) {
-        ringElement.style.stroke = "#4f46e5"; // Indigo / Ungu
+        const strokeDashoffsetValue = 440 - (440 * finalScore) / 100;
+
+        // Ubah warna cincin ring mengikuti kesuksesan nilai skor
+        if (finalScore === 100) {
+            ringElement.style.stroke = "#10b981"; // Emerald / Hijau
+        } else if (finalScore >= 60) {
+            ringElement.style.stroke = "#4f46e5"; // Indigo / Ungu
+        } else {
+            ringElement.style.stroke = "#f43f5e"; // Rose / Merah
+        }
+
+        // Jalankan animasi transisi halus kemunculan box & lingkaran
+        setTimeout(() => {
+            resultBox.classList.remove("opacity-0", "scale-95");
+            ringElement.style.strokeDashoffset = strokeDashoffsetValue;
+        }, 150); // Menaikkan sedikit timeout agar browser HP sempat me-render status awal
     } else {
-        ringElement.style.stroke = "#f43f5e"; // Rose / Merah
+        // Jika ringElement tidak ditemukan, pastikan box hasil tetap muncul
+        setTimeout(() => {
+            resultBox.classList.remove("opacity-0", "scale-95");
+        }, 100);
     }
-
-    // Jalankan animasi transisi halus kemunculan box & lingkaran
-    setTimeout(() => {
-        resultBox.classList.remove("opacity-0", "scale-95");
-        ringElement.style.strokeDashoffset = strokeDashoffsetValue;
-    }, 100);
 }
 
 // C. Ubah fungsi resetQuiz untuk membersihkan localStorage
