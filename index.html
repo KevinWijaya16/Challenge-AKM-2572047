@@ -11,6 +11,7 @@
     />
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
     <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body
     class="bg-slate-50 text-slate-800 font-sans antialiased overflow-x-hidden"
@@ -263,101 +264,142 @@
         </div>
       </div>
     </section>
-    <section id="kalkulator" class="py-12 md:py-20 px-4 bg-slate-900 text-white overflow-hidden">
-      <div class="container mx-auto max-w-4xl">
-        <div class="text-center mb-8 md:mb-12" data-aos="fade-down">
-          <span class="text-amber-400 text-xs md:text-sm font-semibold uppercase tracking-wider">Estimasi AWS Pricing</span>
-          <h2 class="text-2xl md:text-3xl font-bold mt-1.5">Kalkulator Simulasi Biaya</h2>
-          <p class="text-slate-400 text-sm mt-1.5 max-w-md mx-auto">
-            Hitung perkiraan biaya bulanan AWS Lambda berdasarkan arsitektur Anda.
-          </p>
-        </div>
 
-        <div
-          class="bg-slate-800 p-5 sm:p-8 md:p-10 rounded-2xl border border-slate-700 shadow-xl grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-stretch"
-          data-aos="zoom-in"
-          data-aos-duration="800"
-        >
-          <div class="space-y-4 md:space-y-6 flex flex-col justify-between">
-            <div class="space-y-4">
-              <div>
-                <label class="block text-sm font-medium text-slate-300 mb-2">Jumlah Eksekusi (per bulan)</label>
-                <div class="relative">
-                  <input
-                    type="number"
-                    id="input-requests"
-                    value="1000000"
-                    class="w-full bg-slate-950 border border-slate-700 rounded-lg pl-4 pr-20 py-3 text-white focus:outline-none focus:border-amber-500 transition text-sm md:text-base"
-                  />
-                  <span class="absolute right-4 top-3.5 text-xs text-slate-500 font-medium">Request</span>
-                </div>
+    <section id="kalkulator" class="py-12 md:py-24 px-4 bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-white relative overflow-hidden">
+  
+  <div class="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-72 h-72 md:w-96 md:h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="absolute bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2 w-72 h-72 md:w-96 md:h-96 bg-violet-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+  <div class="container mx-auto max-w-4xl relative z-10">
+    
+    <div class="text-center mb-10 md:mb-16" data-aos="fade-up">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold tracking-wider uppercase mb-3">
+        <i class="fas fa-calculator text-[10px]"></i> Estimasi AWS Pricing
+      </div>
+      <h2 class="text-3xl md:text-4xl font-black tracking-tight bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">
+        Kalkulator Simulasi Biaya
+      </h2>
+      <p class="text-slate-400 text-sm md:text-base mt-2 max-w-md mx-auto leading-relaxed">
+        Hitung perkiraan pengeluaran arsitektur serverless AWS Lambda Anda secara real-time.
+      </p>
+    </div>
+
+    <div
+      class="bg-slate-900/60 backdrop-blur-xl p-5 sm:p-8 rounded-3xl border border-slate-800/80 shadow-2xl grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-stretch"
+      data-aos="zoom-in"
+      data-aos-duration="800"
+    >
+      
+      <div class="md:col-span-7 space-y-5 flex flex-col justify-between">
+        <div class="space-y-4">
+          
+          <div class="group">
+            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 group-focus-within:text-indigo-400 transition-colors">
+              Jumlah Eksekusi (per bulan)
+            </label>
+            <div class="relative">
+              <div class="absolute left-4 top-3.5 text-slate-500 group-focus-within:text-indigo-400 transition-colors">
+                <i class="fas fa-layer-group text-sm"></i>
               </div>
-              <div>
-                <label class="block text-sm font-medium text-slate-300 mb-2">Durasi Eksekusi Rata-rata</label>
-                <div class="relative">
-                  <input
-                    type="number"
-                    id="input-duration"
-                    value="200"
-                    class="w-full bg-slate-950 border border-slate-700 rounded-lg pl-4 pr-12 py-3 text-white focus:outline-none focus:border-amber-500 transition text-sm md:text-base"
-                  />
-                  <span class="absolute right-4 top-3.5 text-xs text-slate-500 font-medium">ms</span>
-                </div>
-              </div>
-              <div>
-                <label class="block text-sm font-medium text-slate-300 mb-2">Alokasi Memori (RAM)</label>
-                <select
-                  id="input-memory"
-                  class="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-amber-500 transition text-sm md:text-base"
-                >
-                  <option value="128">128 MB</option>
-                  <option value="512">512 MB</option>
-                  <option value="1024" selected>1024 MB (1 GB)</option>
-                  <option value="2048">2048 MB (2 GB)</option>
-                </select>
-              </div>
+              <input
+                type="number"
+                id="input-requests"
+                value="1000000"
+                class="w-full bg-slate-950/80 border border-slate-800/80 rounded-xl pl-11 pr-24 py-3.5 text-white font-medium placeholder-slate-600 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/10 transition text-sm md:text-base"
+              />
+              <span class="absolute right-4 top-4 text-xs text-slate-500 font-bold uppercase tracking-wider">Request</span>
             </div>
-            <button
-              onclick="hitungBiaya()"
-              class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-3.5 rounded-xl shadow-md transition duration-300 mt-4 active:scale-95 text-sm md:text-base"
-            >
-              Hitung Estimasi
-            </button>
           </div>
 
-          <div
-            class="bg-slate-950 p-5 md:p-6 rounded-xl border border-slate-700 flex flex-col justify-between transition-all duration-500 relative overflow-hidden"
-            id="calc-result-card"
-          >
-            <div>
-              <h3 class="text-base md:text-lg font-semibold text-slate-300 mb-4 border-b border-slate-800 pb-2">
-                Rincian Estimasi
-              </h3>
-              <div class="space-y-3 text-xs md:text-sm text-slate-400">
-                <div class="flex justify-between">
-                  <span>Total Request:</span>
-                  <span id="res-requests" class="text-white font-medium">-</span>
-                </div>
-                <div class="flex justify-between">
-                  <span>Compute (GB-Sec):</span>
-                  <span id="res-gbsec" class="text-white font-medium">-</span>
-                </div>
+          <div class="group">
+            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 group-focus-within:text-indigo-400 transition-colors">
+              Durasi Eksekusi Rata-rata
+            </label>
+            <div class="relative">
+              <div class="absolute left-4 top-3.5 text-slate-500 group-focus-within:text-indigo-400 transition-colors">
+                <i class="fas fa-stopwatch text-sm"></i>
+              </div>
+              <input
+                type="number"
+                id="input-duration"
+                value="200"
+                class="w-full bg-slate-950/80 border border-slate-800/80 rounded-xl pl-11 pr-14 py-3.5 text-white font-medium placeholder-slate-600 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/10 transition text-sm md:text-base"
+              />
+              <span class="absolute right-4 top-4 text-xs text-slate-500 font-bold uppercase tracking-wider">ms</span>
+            </div>
+          </div>
+
+          <div class="group">
+            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 group-focus-within:text-indigo-400 transition-colors">
+              Alokasi Memori (RAM)
+            </label>
+            <div class="relative">
+              <div class="absolute left-4 top-3.5 text-slate-500 group-focus-within:text-indigo-400 transition-colors">
+                <i class="fas fa-memory text-sm"></i>
+              </div>
+              <select
+                id="input-memory"
+                class="w-full bg-slate-950/80 border border-slate-800/80 rounded-xl pl-11 pr-4 py-3.5 text-white font-medium focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/10 transition text-sm md:text-base appearance-none cursor-pointer"
+              >
+                <option value="128">128 MB</option>
+                <option value="512">512 MB</option>
+                <option value="1024" selected>1024 MB (1 GB)</option>
+                <option value="2048">2048 MB (2 GB)</option>
+              </select>
+              <div class="absolute right-4 top-4 text-slate-500 pointer-events-none text-xs">
+                <i class="fas fa-chevron-down"></i>
               </div>
             </div>
-            
-            <div class="mt-6 md:mt-8 pt-5 border-t border-slate-800 text-center md:text-left">
-              <span class="text-[10px] uppercase tracking-wider text-slate-500 font-semibold block mb-1">Total Biaya Bulanan</span>
-              <div class="text-2xl md:text-3xl font-extrabold text-amber-400">
-                $ <span id="res-total" class="transition duration-300">0.00</span>
-              </div>
-              <!-- <p class="text-[10px] text-slate-500 mt-2 leading-relaxed">
-                *Tarif standar AWS Lambda global x86-64 ($0.20 per 1M request & $0.0000166667 per GB-detik).
-              </p> -->
+          </div>
+          
+        </div>
+
+        <button
+          onclick="hitungBiaya()"
+          class="w-full bg-gradient-to-r from-indigo-500 to-violet-600 hover:from-indigo-600 hover:to-violet-700 text-white font-bold py-4 rounded-xl shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/30 transition-all duration-300 mt-6 active:scale-[0.98] text-sm md:text-base tracking-wide uppercase"
+        >
+          Hitung Estimasi Biaya
+        </button>
+      </div>
+
+      <div
+        class="md:col-span-5 bg-gradient-to-b from-slate-950 to-slate-900 p-5 md:p-6 rounded-2xl border border-indigo-500/10 flex flex-col justify-between transition-all duration-500 relative overflow-hidden"
+        id="calc-result-card"
+      >
+        <div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-indigo-500 to-transparent"></div>
+
+        <div>
+          <h3 class="text-sm font-bold text-slate-400 tracking-wider uppercase mb-5 flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span>
+            Rincian Estimasi
+          </h3>
+          
+          <div class="space-y-4 text-xs md:text-sm">
+            <div class="flex justify-between items-center bg-slate-900/50 p-3 rounded-xl border border-slate-800/60">
+              <span class="text-slate-400 font-medium">Total Request:</span>
+              <span id="res-requests" class="text-white font-bold tracking-wide">-</span>
             </div>
+            <div class="flex justify-between items-center bg-slate-900/50 p-3 rounded-xl border border-slate-800/60">
+              <span class="text-slate-400 font-medium">Compute (GB-Sec):</span>
+              <span id="res-gbsec" class="text-indigo-300 font-bold tracking-wide">-</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mt-8 pt-5 border-t border-slate-800/80 text-center md:text-left relative z-10">
+          <span class="text-[10px] uppercase tracking-widest text-indigo-400 font-extrabold block mb-1">Total Biaya Bulanan</span>
+          <div class="text-3xl md:text-4xl font-black text-white tracking-tight flex items-baseline justify-center md:justify-start gap-1">
+            <span class="text-xl md:text-2xl font-bold bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">$</span>
+            <span id="res-total" class="transition duration-300 bg-gradient-to-r from-white via-slate-100 to-indigo-200 bg-clip-text text-transparent">0.00</span>
           </div>
         </div>
       </div>
-    </section>
+      
+    </div>
+  </div>
+</section>
+
+
 
     <section id="kuis" class="py-12 md:py-20 px-4 container mx-auto max-w-3xl">
       <div class="text-center mb-8 md:mb-12" data-aos="fade-up">
