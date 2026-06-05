@@ -16,69 +16,69 @@
   <body
     class="bg-slate-50 text-slate-800 font-sans antialiased overflow-x-hidden"
   >
-    <header
-      class="sticky top-0 z-50 bg-slate-900/95 backdrop-blur text-white shadow-md border-b border-slate-800"
-    >
-      <div
-        class="container mx-auto px-4 py-4 flex justify-between items-center"
-      >
-        <div class="flex items-center space-x-3 group cursor-pointer">
-          <i
-            class="fab fa-aws text-amber-500 text-3xl transition duration-300 group-hover:animate-bounce"
-          ></i>
-          <span class="text-xl font-bold tracking-wider"
-            >Lambda<span class="text-amber-500">Edu</span></span
-          >
-        </div>
+   <header class="sticky top-0 z-50 bg-slate-900/95 backdrop-blur text-white shadow-md border-b border-slate-800">
+  <div class="container mx-auto px-4 py-4 flex justify-between items-center gap-4">
+    
+    <div class="flex items-center space-x-3 group cursor-pointer shrink-0">
+      <i class="fab fa-aws text-amber-500 text-3xl transition duration-300 group-hover:animate-bounce"></i>
+      <span class="text-xl font-bold tracking-wider">Lambda<span class="text-amber-500">Edu</span></span>
+    </div>
 
-        <nav class="hidden md:flex space-x-8 font-medium">
-          <a
-            href="#penjelasan"
-            class="hover:text-amber-500 transition duration-300 relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 hover:after:w-full after:bg-amber-500 after:transition-all after:duration-300 pb-1"
-            >Pengertian</a
-          >
-          <a
-            href="#kalkulator"
-            class="hover:text-amber-500 transition duration-300 relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 hover:after:w-full after:bg-amber-500 after:transition-all after:duration-300 pb-1"
-            >Kalkulator Biaya</a
-          >
-          <a
-            href="#kuis"
-            class="hover:text-amber-500 transition duration-300 relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 hover:after:w-full after:bg-amber-500 after:transition-all after:duration-300 pb-1"
-            >Kuis Interaktif</a
-          >
-        </nav>
+    <div class="hidden md:flex items-center space-x-8 w-full justify-end">
+      <nav class="flex space-x-8 font-medium shrink-0">
+        <a href="#penjelasan" class="hover:text-amber-500 transition duration-300 relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 hover:after:w-full after:bg-amber-500 after:transition-all after:duration-300 pb-1">Pengertian</a>
+        <a href="#kalkulator" class="hover:text-amber-500 transition duration-300 relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 hover:after:w-full after:bg-amber-500 after:transition-all after:duration-300 pb-1">Kalkulator Biaya</a>
+        <a href="#kuis" class="hover:text-amber-500 transition duration-300 relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 hover:after:w-full after:bg-amber-500 after:transition-all after:duration-300 pb-1">Kuis Interaktif</a>
+      </nav>
 
-        <button 
-          id="mobile-menu-btn" 
-          class="block md:hidden text-gray-300 hover:text-white focus:outline-none p-1.5 rounded-lg border border-slate-700/50 bg-slate-800/40 transition"
-          aria-label="Toggle Menu"
-        >
-          <i class="fas fa-bars text-xl" id="menu-icon"></i>
-        </button>
+      <div class="relative max-w-xs w-full group">
+        <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-500 group-focus-within:text-amber-500 transition-colors">
+          <i class="fas fa-search text-xs"></i>
+        </span>
+        <input 
+          type="text" 
+          id="search-input-desktop"
+          placeholder="Cari materi AWS..." 
+          class="w-full bg-slate-950/60 border border-slate-800 rounded-xl pl-9 pr-4 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/10 transition-all duration-300"
+          onkeyup="handleSearch(event)"
+        />
       </div>
+    </div>
 
-      <div 
-        id="mobile-drawer" 
-        class="hidden md:hidden bg-slate-900 border-t border-slate-800 transition-all duration-300 px-4 py-3 space-y-2"
+    <div class="flex md:hidden items-center gap-2">
+      <button 
+        id="mobile-menu-btn" 
+        class="text-gray-300 hover:text-white focus:outline-none p-1.5 rounded-lg border border-slate-700/50 bg-slate-800/40 transition"
+        aria-label="Toggle Menu"
       >
-        <a 
-          href="#penjelasan" 
-          class="mobile-nav-link block py-2.5 px-4 rounded-xl text-gray-300 hover:text-white hover:bg-slate-800 transition font-medium"
-          >Pengertian</a
-        >
-        <a 
-          href="#kalkulator" 
-          class="mobile-nav-link block py-2.5 px-4 rounded-xl text-gray-300 hover:text-white hover:bg-slate-800 transition font-medium"
-          >Kalkulator Biaya</a
-        >
-        <a 
-          href="#kuis" 
-          class="mobile-nav-link block py-2.5 px-4 rounded-xl text-gray-300 hover:text-white hover:bg-slate-800 transition font-medium"
-          >Kuis Interaktif</a
-        >
-      </div>
-    </header>
+        <i class="fas fa-bars text-xl" id="menu-icon"></i>
+      </button>
+    </div>
+
+  </div>
+
+  <div id="mobile-drawer" class="hidden md:hidden bg-slate-900 border-t border-slate-800 transition-all duration-300 px-4 py-4 space-y-3">
+    
+    <div class="relative w-full">
+      <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-500">
+        <i class="fas fa-search text-xs"></i>
+      </span>
+      <input 
+        type="text" 
+        id="search-input-mobile"
+        placeholder="Cari materi AWS..." 
+        class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 transition-all"
+        onkeyup="handleSearch(event)"
+      />
+    </div>
+
+    <hr class="border-slate-800/60 my-2">
+
+    <a href="#penjelasan" class="mobile-nav-link block py-2 px-4 rounded-xl text-gray-300 hover:text-white hover:bg-slate-800 transition font-medium text-sm">Pengertian</a>
+    <a href="#kalkulator" class="mobile-nav-link block py-2 px-4 rounded-xl text-gray-300 hover:text-white hover:bg-slate-800 transition font-medium text-sm">Kalkulator Biaya</a>
+    <a href="#kuis" class="mobile-nav-link block py-2 px-4 rounded-xl text-gray-300 hover:text-white hover:bg-slate-800 transition font-medium text-sm">Kuis Interaktif</a>
+  </div>
+</header>
 
     <section class="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white py-16 md:py-28 px-4 text-center relative overflow-hidden transform-gpu">
       <div class="absolute top-10 left-10 w-48 md:w-72 h-48 md:h-72 bg-amber-500/10 rounded-full blur-3xl"></div>
@@ -600,6 +600,8 @@
         // Mengikuti alur fungsi ring utama di script utama Anda jika diperlukan
         mobileRing.style.strokeDashoffset = "390"; 
       }
+
+      
     </script>
   </body>
 </html>

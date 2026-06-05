@@ -40,6 +40,34 @@ hitungBiaya();
 loadQuestion();
 };
 
+function handleSearch(event) {
+    // Jalankan pencarian hanya saat pengguna menekan tombol 'Enter'
+    if (event.key === "Enter") {
+        const query = event.target.value.trim();
+
+        if (!query) return;
+
+        // Menggunakan fitur bawaan browser untuk mencari teks di dalam halaman
+        // window.find(teks, caseSensitive,逆向Pencarian, wrapAround)
+        const found = window.find(query, false, false, true);
+
+        if (found) {
+            // Jika kata ditemukan, browser otomatis akan melakukan scroll dan memblok (highlight) teks tersebut
+            
+            // Tutup otomatis menu HP jika pencarian dilakukan lewat HP
+            const drawer = document.getElementById("mobile-drawer");
+            if (drawer && !drawer.classList.contains("hidden")) {
+                drawer.classList.add("hidden");
+                const menuIcon = document.getElementById("menu-icon");
+                if (menuIcon) menuIcon.className = "fas fa-bars text-xl";
+            }
+        } else {
+            // Jika kata sama sekali tidak ada di dalam dokumen web
+            alert(`Kata "${query}" tidak ditemukan di halaman ini.`);
+        }
+    }
+}
+
 // ==========================================
 // 2. LOGIKA KUIS DENGAN FITUR BENAR / SALAH REALTIME
 // ==========================================
@@ -424,3 +452,4 @@ if (heroCard) {
         });      
     });
 }
+
