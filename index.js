@@ -273,128 +273,154 @@ function nextQuestion() {
 }
 
 function showResult() {
-    // Sembunyikan box kuis dan progress bar atas
+    // Hide quiz box and top progress bar
     document.getElementById("quiz-box").classList.add("hidden");
     document.getElementById("quiz-progress-container").classList.add("hidden");
 
     const resultBox = document.getElementById("result-box");
     resultBox.classList.remove("hidden");
 
-    // 1. Hitung Detail Metrik Skor Berdasarkan Jawaban
+    // 1. Calculate Score Details
     const totalQuestions = quizData.length;
     const finalScore = Math.round((score / totalQuestions) * 100);
     const wrongAnswers = totalQuestions - score;
     const accuracyPercent = Math.round((score / totalQuestions) * 100);
 
-    // 2. Tentukan Predikat Gelar Berdasarkan Skor
+    // 2. Set Predicate Title
     let badgeTitle = "Cloud Novice ☕";
     if (finalScore === 100) badgeTitle = "AWS Lambda Master 👑";
     else if (finalScore >= 60) badgeTitle = "Serverless Architect ⚡";
 
-    // 3. Masukkan Data ke UI Elemen secara Tepat
+    // 3. Populate UI Elements
     document.getElementById("quiz-score").innerText = finalScore;
     document.getElementById("result-badge-text").innerText = badgeTitle;
-
-    // MEMASTIKAN ELEMEN ANALITIK TERISI DATA RIIL
     document.getElementById("stat-correct").innerText = score;
     document.getElementById("stat-wrong").innerText = wrongAnswers;
     document.getElementById("stat-accuracy").innerText = `${accuracyPercent}%`;
 
-    // 4. Memicu Animasi Pengisian Cincin Sirkular SVG (Keliling = 440)
-    const ringElement = document.getElementById("result-stroke-ring");
-    
-    if (ringElement) {
-        // [PENTING] Paksa definisi stroke-dasharray & beri transisi CSS langsung via JS agar kompatibel di HP
-        ringElement.style.strokeDasharray = "440";
-        ringElement.style.strokeDashoffset = "440"; // Mulai dari kosong
-        ringElement.style.transition = "stroke-dashoffset 1s ease-in-out, stroke 0.5s ease";
+    // =========================================================================
+    // 4. [FIXED] ANIMATE BOTH DESKTOP AND MOBILE CIRCULAR RINGS
+    // =========================================================================
+    const ringDesktop = document.getElementById("result-stroke-ring");
+    const ringMobile = document.getElementById("result-stroke-ring-mobile");
 
-        const strokeDashoffsetValue = 440 - (440 * finalScore) / 100;
-
-        // Ubah warna cincin ring mengikuti kesuksesan nilai skor
-        if (finalScore === 100) {
-            ringElement.style.stroke = "#10b981"; // Emerald / Hijau
-        } else if (finalScore >= 60) {
-            ringElement.style.stroke = "#4f46e5"; // Indigo / Ungu
-        } else {
-            ringElement.style.stroke = "#f43f5e"; // Rose / Merah
-        }
-
-        // Jalankan animasi transisi halus kemunculan box & lingkaran
-        setTimeout(() => {
-            resultBox.classList.remove("opacity-0", "scale-95");
-            ringElement.style.strokeDashoffset = strokeDashoffsetValue;
-        }, 150); // Menaikkan sedikit timeout agar browser HP sempat me-render status awal
+    // a. Determine the score color
+    let strokeColor;
+    if (finalScore === 100) {
+        strokeColor = "#10b981"; // Emerald / Green
+    } else if (finalScore >= 60) {
+        strokeColor = "#4f46e5"; // Indigo / Purple
     } else {
-        // Jika ringElement tidak ditemukan, pastikan box hasil tetap muncul
-        setTimeout(() => {
-            resultBox.classList.remove("opacity-0", "scale-95");
-        }, 100);
+        strokeColor = "#f43f5e"; // Rose / Red
     }
+
+    // b. Configure DESKTOP ring (Circumference = 440)
+    if (ringDesktop) {
+        ringDesktop.style.strokeDasharray = "440";
+        ringDesktop.style.strokeDashoffset = "440"; // Start empty
+        ringDesktop.style.transition = "stroke-dashoffset 1s ease-in-out, stroke 0.5s ease";
+        ringDesktop.style.stroke = strokeColor; // Apply the color
+    }
+
+    // c. Configure MOBILE ring (Circumference = 390)
+    if (ringMobile) {
+        ringMobile.style.strokeDasharray = "390";
+        ringMobile.style.strokeDashoffset = "390"; // Start empty
+        ringMobile.style.transition = "stroke-dashoffset 1s ease-in-out, stroke 0.5s ease";
+        ringMobile.style.stroke = strokeColor; // Apply the color
+    }
+
+    // d. Trigger the animated fill-in transition
+    setTimeout(() => {
+        resultBox.classList.remove("opacity-0", "scale-95");
+        
+        if (ringDesktop) {
+            const dashoffsetDesktop = 440 - (440 * finalScore) / 100;
+            ringDesktop.style.strokeDashoffset = dashoffsetDesktop;
+        }
+        
+        if (ringMobile) {
+            const dashoffsetMobile = 390 - (390 * finalScore) / 100;
+            ringMobile.style.strokeDashoffset = dashoffsetMobile;
+        }
+    }, 150);
 }
 
-// C. Ubah fungsi resetQuiz untuk membersihkan localStorage
+// ==========================================
+// 3. FITUR MENGULANG KUIS
+// ==========================================
 function resetQuiz() {
-    // Hapus data kuis dari penyimpanan sirkuit browser
+    // 1. Hapus data kuis dari penyimpanan lokal browser
     localStorage.removeItem("quiz_current_index");
     localStorage.removeItem("quiz_score");
 
     currentQuestionIndex = 0;
     score = 0;
 
-    // Kembalikan tampilan box kuis dan progress bar atas
-    document.getElementById("quiz-box").classList.remove("hidden");
-    document
-        .getElementById("quiz-progress-container")
-        .classList.remove("hidden");
-
     const resultBox = document.getElementById("result-box");
-    resultBox.classList.add("hidden", "opacity-0", "scale-95");
+    const quizBox = document.getElementById("quiz-box");
+    const progressContainer = document.getElementById("quiz-progress-container");
+    const ringElement = document.getElementById("result-stroke-ring");
 
-    // Reset stroke dashoffset ring SVG kembali ke kosong (440)
-    document.getElementById("result-stroke-ring").style.strokeDashoffset =
-        440;
+    // 2. Beri efek animasi keluar pada result box sebelum disembunyikan
+    resultBox.classList.add("opacity-0", "scale-95");
 
-    // Muat ulang dari pertanyaan pertama
-    loadQuestion();
+    setTimeout(() => {
+        resultBox.classList.add("hidden");
+        
+        // 3. Kembalikan tampilan box kuis dan progress bar
+        quizBox.classList.remove("hidden", "opacity-0");
+        progressContainer.classList.remove("hidden");
+
+        // 4. Reset stroke dashoffset ring SVG kembali ke kosong (440)
+        if (ringElement) {
+            ringElement.style.strokeDashoffset = "440";
+        }
+
+        // 5. Muat ulang dari pertanyaan pertama
+        loadQuestion();
+    }, 200); // Sinkron dengan durasi transisi CSS
 }
 
-// Menambahkan penangan onload untuk memuat kuis berdasarkan progres
+// ==========================================
+// 4. INISIALISASI SISTEM (ONLOAD)
+// ==========================================
+// Menggabungkan semua fungsi onload agar tidak saling menimpa
 window.onload = function () {
-    // Jalankan kalkulator bawaan Anda (asumsi ada fungsi hitungBiaya)
+    // Jalankan kalkulator bawaan
     if (typeof hitungBiaya === "function") {
         hitungBiaya();
     }
 
-    // Jalankan kuis berdasarkan progres terakhir yang tersimpan
+    // Jalankan kuis berdasarkan progres terakhir
     loadQuestion();
+
+    // Set tahun otomatis di footer
+    const yearEl = document.getElementById("year");
+    if (yearEl) {
+        yearEl.textContent = new Date().getFullYear();
+    }
 };
 
-
-document.getElementById("year").textContent =
-    new Date().getFullYear();
-
-
-
-// home
+// ==========================================
+// 5. LOGIKA HOME & PARALLAX EFFECT
+// ==========================================
 const heroCard = document.getElementById('hero-tilt-card');
-        const parallaxElements = document.querySelectorAll('.layer-parallax');
+const parallaxElements = document.querySelectorAll('.layer-parallax');
 
-        if (heroCard) {
-            window.addEventListener('mousemove', (e) => {
-                // 1. LOGIKA ELEMEN 3D SEKITAR (Parallax Effect Berlawanan Arah)
-                const windowWidth = window.innerWidth;
-                const windowHeight = window.innerHeight;
-                
-                const mouseX = (e.clientX - windowWidth / 2) / (windowWidth / 2);
-                const mouseY = (e.clientY - windowHeight / 2) / (windowHeight / 2);
+if (heroCard) {
+    window.addEventListener('mousemove', (e) => {
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
+        
+        const mouseX = (e.clientX - windowWidth / 2) / (windowWidth / 2);
+        const mouseY = (e.clientY - windowHeight / 2) / (windowHeight / 2);
 
-                parallaxElements.forEach(el => {
-                    const depth = el.getAttribute('data-depth') || 0.2;
-                    // Bergerak ke arah berlawanan dari mouse berdasarkan nilai depth-nya
-                    const moveX = mouseX * (depth * -40);
-                    const moveY = mouseY * (depth * -40);
-                    el.style.transform = `translate3d(${moveX}px, ${moveY}px, 0)`;
-                });      
-            });
-        }
+        parallaxElements.forEach(el => {
+            const depth = el.getAttribute('data-depth') || 0.2;
+            const moveX = mouseX * (depth * -40);
+            const moveY = mouseY * (depth * -40);
+            el.style.transform = `translate3d(${moveX}px, ${moveY}px, 0)`;
+        });      
+    });
+}
