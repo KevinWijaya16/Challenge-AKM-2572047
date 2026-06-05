@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="id" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AWS Lambda Interactive Learning Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body
+    class="bg-slate-50 text-slate-800 font-sans antialiased overflow-x-hidden"
+  >
+    <header
+      class="sticky top-0 z-50 bg-slate-900/95 backdrop-blur text-white shadow-md border-b border-slate-800"
+    >
+      <div
+        class="container mx-auto px-4 py-4 flex justify-between items-center"
+      >
+        <div class="flex items-center space-x-3 group cursor-pointer">
+          <i
+            class="fab fa-aws text-amber-500 text-3xl transition duration-300 group-hover:animate-bounce"
+          ></i>
+          <span class="text-xl font-bold tracking-wider"
+            >Lambda<span class="text-amber-500">Edu</span></span
+          >
+        </div>
+
+        <nav class="hidden md:flex space-x-8 font-medium">
+          <a
+            href="#penjelasan"
+            class="hover:text-amber-500 transition duration-300 relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 hover:after:w-full after:bg-amber-500 after:transition-all after:duration-300 pb-1"
+            >Pengertian</a
+          >
+          <a
+            href="#kalkulator"
+            class="hover:text-amber-500 transition duration-300 relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 hover:after:w-full after:bg-amber-500 after:transition-all after:duration-300 pb-1"
+            >Kalkulator Biaya</a
+          >
+          <a
+            href="#kuis"
+            class="hover:text-amber-500 transition duration-300 relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 hover:after:w-full after:bg-amber-500 after:transition-all after:duration-300 pb-1"
+            >Kuis Interaktif</a
+          >
+        </nav>
+
+        <button 
+          id="mobile-menu-btn" 
+          class="block md:hidden text-gray-300 hover:text-white focus:outline-none p-1.5 rounded-lg border border-slate-700/50 bg-slate-800/40 transition"
+          aria-label="Toggle Menu"
+        >
+          <i class="fas fa-bars text-xl" id="menu-icon"></i>
+        </button>
+      </div>
+
+      <div 
+        id="mobile-drawer" 
+        class="hidden md:hidden bg-slate-900 border-t border-slate-800 transition-all duration-300 px-4 py-3 space-y-2"
+      >
+        <a 
+          href="#penjelasan" 
+          class="mobile-nav-link block py-2.5 px-4 rounded-xl text-gray-300 hover:text-white hover:bg-slate-800 transition font-medium"
+          >Pengertian</a
+        >
+        <a 
+          href="#kalkulator" 
+          class="mobile-nav-link block py-2.5 px-4 rounded-xl text-gray-300 hover:text-white hover:bg-slate-800 transition font-medium"
+          >Kalkulator Biaya</a
+        >
+        <a 
+          href="#kuis" 
+          class="mobile-nav-link block py-2.5 px-4 rounded-xl text-gray-300 hover:text-white hover:bg-slate-800 transition font-medium"
+          >Kuis Interaktif</a
+        >
+      </div>
+    </header>
+
+    <section class="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white py-16 md:py-28 px-4 text-center relative overflow-hidden transform-gpu">
+      <div class="absolute top-10 left-10 w-48 md:w-72 h-48 md:h-72 bg-amber-500/10 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-10 right-10 w-64 md:w-96 h-64 md:h-96 bg-indigo-500/10 rounded-full blur-3xl"></div>
+
+      <div class="layer-parallax absolute top-16 left-[10%] w-16 h-16 bg-gradient-to-br from-amber-400 to-orange-500 opacity-20 rounded-xl blur-[1px] animate-float-slow hidden lg:block" data-depth="0.4"></div>
+      <div class="layer-parallax absolute top-24 right-[12%] w-24 h-24 border-4 border-dashed border-indigo-500/30 rounded-full animate-spin-slow hidden lg:block" data-depth="0.2"></div>
+      <div class="layer-parallax absolute bottom-20 left-[15%] w-0 h-0 border-l-[30px] border-l-transparent border-b-[50px] border-b-rose-500/20 border-r-[30px] border-r-transparent animate-float-slow hidden lg:block" style="animation-delay: 2s;" data-depth="0.5"></div>
+      <div class="layer-parallax absolute bottom-16 right-[15%] w-8 h-20 bg-gradient-to-t from-indigo-500/10 to-purple-500/20 rounded-full rotate-45 animate-float-slow hidden lg:block" style="animation-delay: 1s;" data-depth="0.3"></div>
+
+      <div 
+        id="hero-tilt-card" 
+        class="max-w-3xl mx-auto relative z-10 bg-slate-900/50 border border-slate-800/80 p-6 sm:p-8 md:p-12 rounded-2xl md:rounded-3xl backdrop-blur-md transition-all duration-200 ease-out cursor-pointer glow-effect transform-gpu shadow-2xl"
+        data-aos="zoom-in"
+        data-aos-duration="1000"
+      >
+        <span class="bg-amber-500/10 text-amber-400 border border-amber-500/30 text-[11px] sm:text-xs font-semibold uppercase px-3 py-1 rounded-full tracking-wider inline-block mb-4 animate-pulse">
+          Serverless Computing
+        </span>
+        
+        <h1 class="text-3xl sm:text-4xl md:text-6xl font-extrabold mb-4 md:mb-6 leading-tight select-none tracking-tight">
+          Kuasai 
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-500 to-amber-400 animate-text-gradient">
+            AWS Lambda
+          </span> 
+          dengan Mudah
+        </h1>
+        
+        <p class="text-slate-300 text-sm sm:text-base md:text-xl mb-6 md:mb-8 leading-relaxed select-none max-w-2xl mx-auto">
+          Pelajari konsepnya, simulasikan estimasi biaya riil arsitektur serverless Anda, dan uji pemahaman Anda di sini.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row justify-center items-stretch sm:items-center gap-3 sm:gap-4 max-w-sm mx-auto sm:max-w-none">
+          <a href="#penjelasan" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-6 py-3 rounded-xl shadow-lg hover:shadow-amber-500/30 transition duration-300 transform hover:-translate-y-1 active:scale-95 text-center text-sm md:text-base">
+            Mulai Belajar
+          </a>
+          <a href="#kalkulator" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 font-medium px-6 py-3 rounded-xl transition duration-300 transform hover:-translate-y-1 active:scale-95 text-center text-sm md:text-base">
+            Hitung Biaya
+          </a>
+        </div>
+      </div>
+    </section>
+
+ <section id="penjelasan" class="py-12 md:py-20 px-4 container mx-auto max-w-6xl">
+      <div class="text-center mb-12 md:mb-16" data-aos="fade-up">
+        <h2 class="text-2xl md:text-3xl font-bold text-slate-900 mb-3 md:mb-4">
+          Apa itu AWS Lambda?
+        </h2>
+        <div class="w-16 h-1 bg-amber-500 mx-auto rounded-full mb-8"></div>
+        
+        <div class="max-w-3xl mx-auto text-slate-600 text-base md:text-lg leading-relaxed space-y-4 text-justify sm:text-center">
+          <p>
+            <strong class="text-slate-900">AWS Lambda</strong> adalah layanan komputasi berbasis <span class="italic font-medium text-indigo-600">serverless</span> yang disediakan oleh Amazon Web Services (AWS). Layanan ini memungkinkan Anda untuk menjalankan kode program tanpa perlu memikirkan penyediaan (<span class="italic">provisioning</span>) atau pengelolaan server fisik maupun virtual.
+          </p>
+          <p>
+            Cukup unggah kode Anda dalam bahasa pemrograman yang didukung (seperti Python, Node.js, atau Go), dan AWS Lambda akan menangani semua infrastruktur mulai dari manajemen kapasitas, penskalaan otomatis (<span class="italic">auto-scaling</span>), hingga pemantauan secara otomatis.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-16 md:mb-24">
+        <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl transition duration-300 transform hover:-translate-y-2" data-aos="fade-up" data-aos-delay="100">
+          <div class="w-12 h-12 bg-amber-100 text-amber-600 flex items-center justify-center rounded-xl text-xl font-bold mb-5 transition duration-300 hover:scale-110">
+            <i class="fas fa-server"></i>
+          </div>
+          <h3 class="text-lg md:text-xl font-semibold mb-2.5 text-slate-900">Serverless</h3>
+          <p class="text-slate-600 text-sm md:text-base leading-relaxed">
+            Anda tidak perlu memikirkan penyediaan atau pengelolaan server. Cukup unggah kode Anda, dan AWS Lambda yang akan mengurus semuanya.
+          </p>
+        </div>
+        <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl transition duration-300 transform hover:-translate-y-2" data-aos="fade-up" data-aos-delay="200">
+          <div class="w-12 h-12 bg-indigo-100 text-indigo-600 flex items-center justify-center rounded-xl text-xl font-bold mb-5 transition duration-300 hover:scale-110">
+            <i class="fas fa-bolt"></i>
+          </div>
+          <h3 class="text-lg md:text-xl font-semibold mb-2.5 text-slate-900">Event-Driven</h3>
+          <p class="text-slate-600 text-sm md:text-base leading-relaxed">
+            Fungsi Anda berjalan otomatis merespons pemicu (event) dari layanan AWS lain (seperti upload file di S3 atau HTTP request via API Gateway).
+          </p>
+        </div>
+        <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl transition duration-300 transform hover:-translate-y-2" data-aos="fade-up" data-aos-delay="300">
+          <div class="w-12 h-12 bg-emerald-100 text-emerald-600 flex items-center justify-center rounded-xl text-xl font-bold mb-5 transition duration-300 hover:scale-110">
+            <i class="fas fa-coins"></i>
+          </div>
+          <h3 class="text-lg md:text-xl font-semibold mb-2.5 text-slate-900">Pay As You Go</h3>
+          <p class="text-slate-600 text-sm md:text-base leading-relaxed">
+            Anda hanya membayar berdasarkan jumlah pemicuan dan durasi eksekusi kode dalam hitungan milidetik. Nol biaya saat kode tidak berjalan.
+          </p>
+        </div>
+      </div>
+
+      <div class="mb-16 md:mb-24" data-aos="fade-up">
+        <div class="text-center mb-8 md:mb-12">
+          <h3 class="text-xl md:text-2xl font-bold text-slate-900 mb-2">Bagaimana Lambda Bekerja?</h3>
+          <p class="text-slate-500 text-sm md:text-base">4 langkah sederhana dari penulisan kode hingga eksekusi otomatis</p>
+        </div>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative">
+          <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100 relative">
+            <span class="absolute top-4 right-4 text-3xl font-extrabold text-slate-200">01</span>
+            <div class="text-amber-500 text-lg font-bold mb-2">Tulis Kode</div>
+            <p class="text-slate-600 text-sm leading-relaxed">Anda menyusun baris kode mandiri terisolasi yang disebut fungsi untuk menyelesaikan satu tugas spesifik.</p>
+          </div>
+          <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100 relative">
+            <span class="absolute top-4 right-4 text-3xl font-extrabold text-slate-200">02</span>
+            <div class="text-indigo-500 text-lg font-bold mb-2">Atur Hak Akses</div>
+            <p class="text-slate-600 text-sm leading-relaxed">Gunakan peran IAM eksekusi guna mengontrol secara ketat layanan AWS apa saja yang boleh berinteraksi dengan fungsi Anda.</p>
+          </div>
+          <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100 relative">
+            <span class="absolute top-4 right-4 text-3xl font-extrabold text-slate-200">03</span>
+            <div class="text-emerald-500 text-lg font-bold mb-2">Pemicu Masuk</div>
+            <p class="text-slate-600 text-sm leading-relaxed">Event/pemicu eksternal datang, lalu melemparkan data kontekstual berformat JSON langsung ke arah fungsi.</p>
+          </div>
+          <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100 relative">
+            <span class="absolute top-4 right-4 text-3xl font-extrabold text-slate-200">04</span>
+            <div class="text-blue-500 text-lg font-bold mb-2">Eksekusi Kilat</div>
+            <p class="text-slate-600 text-sm leading-relaxed">Lambda langsung menyiapkan runtime terisolasi, mengeksekusi kode, dan mati otomatis sesaat setelah selesai.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 items-start">
+        <div data-aos="fade-right">
+          <h3 class="text-xl md:text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3">
+            <i class="fas fa-tools text-amber-500"></i> Fitur-Fitur Utama Lambda
+          </h3>
+          <div class="space-y-4">
+            <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm flex gap-4">
+              <div class="text-indigo-600 mt-1"><i class="fas fa-sliders-h"></i></div>
+              <div>
+                <h4 class="font-semibold text-slate-900 text-sm md:text-base">Variabel Lingkungan & Versi</h4>
+                <p class="text-slate-600 text-xs md:text-sm mt-1">Modifikasi perilaku aplikasi secara instan tanpa ubah kode utama, serta uji fitur baru dengan sistem rollback aman.</p>
+              </div>
+            </div>
+            <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm flex gap-4">
+              <div class="text-emerald-600 mt-1"><i class="fas fa-layer-group"></i></div>
+              <div>
+                <h4 class="font-semibold text-slate-900 text-sm md:text-base">Lambda Layers & SnapStart</h4>
+                <p class="text-slate-600 text-xs md:text-sm mt-1">Bagikan pustaka bersama antar fungsi agar hemat ruang, dan pangkas durasi cold start awal ke performa sub-detik.</p>
+              </div>
+            </div>
+            <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm flex gap-4">
+              <div class="text-blue-600 mt-1"><i class="fas fa-link"></i></div>
+              <div>
+                <h4 class="font-semibold text-slate-900 text-sm md:text-base">Integrasi Jaringan & Fungsi URL</h4>
+                <p class="text-slate-600 text-xs md:text-sm mt-1">Sambungkan fungsi ke sistem database privat via VPC, atau buat public endpoint langsung tanpa butuh API Gateway.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div data-aos="fade-left">
+          <h3 class="text-xl md:text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3">
+            <i class="fas fa-cubes text-indigo-500"></i> 4 Komponen Inti Lambda
+          </h3>
+          <div class="overflow-hidden border border-slate-100 rounded-2xl shadow-sm bg-white">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-slate-50 border-b border-slate-100">
+                  <th class="p-4 text-xs md:text-sm font-bold text-slate-700 uppercase tracking-wider w-1/3">Komponen</th>
+                  <th class="p-4 text-xs md:text-sm font-bold text-slate-700 uppercase tracking-wider">Peran Sederhana</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100 text-xs md:text-sm text-slate-600">
+                <tr>
+                  <td class="p-4 font-semibold text-slate-900">Fungsi & Handler</td>
+                  <td class="p-4 leading-relaxed">Wadah logika utama program beserta gerbang masuk eksekusi kode ketika pemicu datang.</td>
+                </tr>
+                <tr>
+                  <td class="p-4 font-semibold text-slate-900">Runtime & Environment</td>
+                  <td class="p-4 leading-relaxed">Ruang isolasi mesin virtual AWS beserta penerjemah bahasa pemrogramannya (misal: Python/Node.js).</td>
+                </tr>
+                <tr>
+                  <td class="p-4 font-semibold text-slate-900">Event & Pemicu</td>
+                  <td class="p-4 leading-relaxed">Sinyal bel pintu eksternal yang memerintahkan Lambda untuk langsung terjaga dan beroperasi.</td>
+                </tr>
+                <tr>
+                  <td class="p-4 font-semibold text-slate-900">Izin & Peran (IAM)</td>
+                  <td class="p-4 leading-relaxed">Kunci otentikasi digital penentu batasan hak operasional fungsi ke resource AWS lain.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="kalkulator" class="py-12 md:py-20 px-4 bg-slate-900 text-white overflow-hidden">
+      <div class="container mx-auto max-w-4xl">
+        <div class="text-center mb-8 md:mb-12" data-aos="fade-down">
+          <span class="text-amber-400 text-xs md:text-sm font-semibold uppercase tracking-wider">Estimasi AWS Pricing</span>
+          <h2 class="text-2xl md:text-3xl font-bold mt-1.5">Kalkulator Simulasi Biaya</h2>
+          <p class="text-slate-400 text-sm mt-1.5 max-w-md mx-auto">
+            Hitung perkiraan biaya bulanan AWS Lambda berdasarkan arsitektur Anda.
+          </p>
+        </div>
+
+        <div
+          class="bg-slate-800 p-5 sm:p-8 md:p-10 rounded-2xl border border-slate-700 shadow-xl grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-stretch"
+          data-aos="zoom-in"
+          data-aos-duration="800"
+        >
+          <div class="space-y-4 md:space-y-6 flex flex-col justify-between">
+            <div class="space-y-4">
+              <div>
+                <label class="block text-sm font-medium text-slate-300 mb-2">Jumlah Eksekusi (per bulan)</label>
+                <div class="relative">
+                  <input
+                    type="number"
+                    id="input-requests"
+                    value="1000000"
+                    class="w-full bg-slate-950 border border-slate-700 rounded-lg pl-4 pr-20 py-3 text-white focus:outline-none focus:border-amber-500 transition text-sm md:text-base"
+                  />
+                  <span class="absolute right-4 top-3.5 text-xs text-slate-500 font-medium">Request</span>
+                </div>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-slate-300 mb-2">Durasi Eksekusi Rata-rata</label>
+                <div class="relative">
+                  <input
+                    type="number"
+                    id="input-duration"
+                    value="200"
+                    class="w-full bg-slate-950 border border-slate-700 rounded-lg pl-4 pr-12 py-3 text-white focus:outline-none focus:border-amber-500 transition text-sm md:text-base"
+                  />
+                  <span class="absolute right-4 top-3.5 text-xs text-slate-500 font-medium">ms</span>
+                </div>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-slate-300 mb-2">Alokasi Memori (RAM)</label>
+                <select
+                  id="input-memory"
+                  class="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-amber-500 transition text-sm md:text-base"
+                >
+                  <option value="128">128 MB</option>
+                  <option value="512">512 MB</option>
+                  <option value="1024" selected>1024 MB (1 GB)</option>
+                  <option value="2048">2048 MB (2 GB)</option>
+                </select>
+              </div>
+            </div>
+            <button
+              onclick="hitungBiaya()"
+              class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-3.5 rounded-xl shadow-md transition duration-300 mt-4 active:scale-95 text-sm md:text-base"
+            >
+              Hitung Estimasi
+            </button>
+          </div>
+
+          <div
+            class="bg-slate-950 p-5 md:p-6 rounded-xl border border-slate-700 flex flex-col justify-between transition-all duration-500 relative overflow-hidden"
+            id="calc-result-card"
+          >
+            <div>
+              <h3 class="text-base md:text-lg font-semibold text-slate-300 mb-4 border-b border-slate-800 pb-2">
+                Rincian Estimasi
+              </h3>
+              <div class="space-y-3 text-xs md:text-sm text-slate-400">
+                <div class="flex justify-between">
+                  <span>Total Request:</span>
+                  <span id="res-requests" class="text-white font-medium">-</span>
+                </div>
+                <div class="flex justify-between">
+                  <span>Compute (GB-Sec):</span>
+                  <span id="res-gbsec" class="text-white font-medium">-</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="mt-6 md:mt-8 pt-5 border-t border-slate-800 text-center md:text-left">
+              <span class="text-[10px] uppercase tracking-wider text-slate-500 font-semibold block mb-1">Total Biaya Bulanan</span>
+              <div class="text-2xl md:text-3xl font-extrabold text-amber-400">
+                $ <span id="res-total" class="transition duration-300">0.00</span>
+              </div>
+              <!-- <p class="text-[10px] text-slate-500 mt-2 leading-relaxed">
+                *Tarif standar AWS Lambda global x86-64 ($0.20 per 1M request & $0.0000166667 per GB-detik).
+              </p> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="kuis" class="py-12 md:py-20 px-4 container mx-auto max-w-3xl">
+      <div class="text-center mb-8 md:mb-12" data-aos="fade-up">
+        <h2 class="text-2xl md:text-3xl font-bold text-slate-900">Uji Pemahaman Anda</h2>
+        <p class="text-slate-600 text-sm md:text-base mt-2">
+          Selesaikan kuis interaktif seputar AWS Lambda berikut.
+        </p>
+      </div>
+
+      <div
+        class="bg-white p-5 sm:p-6 md:p-8 rounded-2xl shadow-xl border border-slate-200 overflow-hidden"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        <div id="quiz-progress-container" class="w-full bg-slate-100 h-2 rounded-full mb-5 md:mb-6 overflow-hidden">
+          <div id="quiz-progress" class="bg-blue-500 h-full w-1/3 transition-all duration-500 ease-out"></div>
+        </div>
+
+        <div id="quiz-box" class="transition-opacity duration-300">
+          <div class="flex justify-between items-center mb-2.5">
+            <span id="quiz-number" class="text-[10px] sm:text-xs font-semibold uppercase text-blue-600 tracking-wider">Pertanyaan 1 dari 3</span>
+            <span id="quiz-feedback-badge" class="hidden text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider"></span>
+          </div>
+          <h3 id="quiz-question" class="text-lg md:text-xl font-bold text-slate-900 mb-5 md:mb-6 leading-snug">
+            Loading pertanyaan...
+          </h3>
+
+          <div id="quiz-options" class="space-y-3">
+            </div>
+
+          <div class="mt-6 md:mt-8 flex justify-end">
+            <button
+              id="btn-next"
+              onclick="nextQuestion()"
+              class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-2.5 rounded-xl transition-all duration-300 disabled:opacity-50 active:scale-95 flex items-center justify-center text-sm md:text-base"
+              disabled
+            >
+              Lanjut <i class="fas fa-arrow-right ml-2 text-xs"></i>
+            </button>
+          </div>
+        </div>
+
+        <div id="result-box" class="hidden text-center py-4 md:py-6 opacity-0 transition-all duration-700 transform scale-95">
+          <div class="inline-flex items-center space-x-2 bg-indigo-50 border border-indigo-200 px-3.5 py-1.5 rounded-full mb-5">
+            <i class="fas fa-award text-indigo-600 animate-pulse text-xs"></i>
+            <span id="result-badge-text" class="text-[10px] font-bold uppercase tracking-widest text-indigo-800">Evaluasi Selesai</span>
+          </div>
+
+          <h3 class="text-2xl font-black text-slate-900 mb-1.5 tracking-tight">Performa Belajar Anda</h3>
+          <p class="text-slate-500 text-xs md:text-sm max-w-xs sm:max-w-md mx-auto mb-6 md:mb-8">
+            Berikut adalah hasil evaluasi pemahaman arsitektur serverless AWS Lambda Anda.
+          </p>
+
+          <div class="relative w-36 h-36 md:w-40 md:h-40 mx-auto mb-6 md:mb-8 flex items-center justify-center">
+            <svg class="w-full h-full transform -rotate-90">
+              <circle cx="72" cy="72" r="62" class="stroke-slate-100 fill-none md:hidden" stroke-width="8" />
+              <circle id="result-stroke-ring-mobile" cx="72" cy="72" r="62" class="stroke-indigo-600 fill-none transition-all duration-1000 ease-out md:hidden" stroke-width="8" stroke-dasharray="390" stroke-dashoffset="390" stroke-linecap="round" />
+              
+              <circle cx="80" cy="80" r="70" class="stroke-slate-100 fill-none hidden md:block" stroke-width="10" />
+              <circle id="result-stroke-ring" cx="80" cy="80" r="70" class="stroke-indigo-600 fill-none transition-all duration-1000 ease-out hidden md:block" stroke-width="10" stroke-dasharray="440" stroke-dashoffset="440" stroke-linecap="round" />
+            </svg>
+            <div class="absolute text-center">
+              <span id="quiz-score" class="text-3xl md:text-5xl font-black text-slate-900 tracking-tight">0</span>
+              <span class="block text-[9px] md:text-[10px] uppercase tracking-wider font-bold text-slate-400 mt-0.5">Skor Total</span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-3 gap-2.5 max-w-sm sm:max-w-md mx-auto mb-8">
+            <div id="benar" class="bg-emerald-50/60 border border-emerald-100 p-2 sm:p-3 rounded-xl text-center">
+              <span class="block text-[10px] font-semibold text-emerald-800 mb-0.5"><i class="fas fa-check text-emerald-600 mr-0.5"></i> Benar</span>
+              <span id="stat-correct" class="text-base font-bold text-emerald-950">0</span>
+            </div>
+            <div id="salah" class="bg-rose-50/60 border border-rose-100 p-2 sm:p-3 rounded-xl text-center">
+              <span class="block text-[10px] font-semibold text-rose-800 mb-0.5"><i class="fas fa-times text-rose-600 mr-0.5"></i> Salah</span>
+              <span id="stat-wrong" class="text-base font-bold text-rose-950">0</span>
+            </div>
+            <div id="akurasi" class="bg-amber-50/60 border border-amber-100 p-2 sm:p-3 rounded-xl text-center">
+              <span class="block text-[10px] font-semibold text-amber-800 mb-0.5"><i class="fas fa-bullseye text-amber-600 mr-0.5"></i> Akurasi</span>
+              <span id="stat-accuracy" class="text-base font-bold text-amber-950">0%</span>
+            </div>
+          </div>
+
+          <button
+            onclick="restQuiz()"
+            class="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 text-white font-bold px-8 py-3.5 rounded-xl shadow-lg transition transform hover:-translate-y-0.5 active:scale-95 inline-flex items-center justify-center space-x-2 text-sm"
+          >
+            <i class="fas fa-redo-alt text-xs"></i>
+            <span>Ulangi Evaluasi Kuis</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <footer class="relative mt-12 md:mt-20 bg-gradient-to-br from-slate-950 via-slate-900 to-gray-950 text-white overflow-hidden">
+      <div class="absolute top-0 left-0 w-48 md:w-72 h-48 md:h-72 bg-orange-500/10 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-0 right-0 w-48 md:w-72 h-48 md:h-72 bg-blue-500/10 rounded-full blur-3xl"></div>
+
+      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 py-12 md:py-16">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-center">
+          <div>
+            <span class="inline-flex items-center px-3 py-1.5 rounded-full bg-orange-500/20 border border-orange-500/30 text-orange-400 text-xs font-semibold mb-4">
+              ☁️ AWS Cloud Computing
+            </span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold bg-gradient-to-r from-orange-400 to-yellow-300 bg-clip-text text-transparent mb-3">
+              AWS Lambda Interactive Learning
+            </h2>
+            <p class="text-gray-300 text-sm md:text-base leading-relaxed">
+              Website interaktif yang membahas AWS Lambda melalui materi pembelajaran, simulasi perhitungan biaya, dan kuis interaktif untuk membantu memahami konsep serverless computing dengan lebih mudah.
+            </p>
+            <a href="https://aws.amazon.com/lambda/" target="_blank" class="inline-flex items-center justify-center mt-5 px-5 py-3 rounded-xl bg-orange-500 hover:bg-orange-600 transition-all duration-300 shadow-lg text-sm font-semibold w-full sm:w-auto text-center">
+              Pelajari AWS Lambda →
+            </a>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3 sm:gap-4">
+            <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-4 hover:-translate-y-1 transition duration-300">
+              <h3 class="text-2xl font-bold text-orange-400">∞</h3>
+              <p class="text-gray-300 text-xs sm:text-sm mt-1">Serverless Scalability</p>
+            </div>
+            <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-4 hover:-translate-y-1 transition duration-300">
+              <h3 class="text-2xl font-bold text-orange-400">⚡</h3>
+              <p class="text-gray-300 text-xs sm:text-sm mt-1">Event Driven</p>
+            </div>
+            <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-4 hover:-translate-y-1 transition duration-300">
+              <h3 class="text-2xl font-bold text-orange-400">$</h3>
+              <p class="text-gray-300 text-xs sm:text-sm mt-1">Pay As You Go</p>
+            </div>
+            <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-4 hover:-translate-y-1 transition duration-300">
+              <h3 class="text-2xl font-bold text-orange-400">☁️</h3>
+              <p class="text-gray-300 text-xs sm:text-sm mt-1">Cloud Native</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="border-t border-white/10 my-8 md:my-10"></div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 text-sm">
+          <div>
+            <h3 class="font-bold text-orange-400 mb-2.5">Tentang AWS</h3>
+            <p class="text-gray-400 text-xs leading-relaxed">
+              Amazon Web Services (AWS) adalah platform cloud computing yang menyediakan berbagai layanan komputasi, penyimpanan, database, keamanan, networking, dan serverless computing.
+            </p>
+          </div>
+          <div>
+            <h3 class="font-bold text-orange-400 mb-2.5">Topik Website</h3>
+            <ul class="space-y-1.5 text-gray-400 text-xs">
+              <li>AWS Lambda</li>
+              <li>Cost Calculator</li>
+              <li>Interactive Quiz</li>
+              <li>Cloud Computing Learning</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="font-bold text-orange-400 mb-2.5">Developer</h3>
+            <p class="text-gray-300 text-xs">Kevin Wijaya</p>
+          </div>
+        </div>
+
+        <div class="border-t border-white/10 mt-8 pt-6 text-center text-gray-500 text-xs">
+          &copy; 2026 Kevin Wijaya. Developed for AWS Lambda Interactive Learning.
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="index.js"></script>
+
+    <script>
+      // 1. Logika Mobile Menu Toggle (Hamburger & Drawer)
+      const menuBtn = document.getElementById('mobile-menu-btn');
+      const drawer = document.getElementById('mobile-drawer');
+      const menuIcon = document.getElementById('menu-icon');
+      const navLinks = document.querySelectorAll('.mobile-nav-link');
+
+      menuBtn.addEventListener('click', () => {
+        drawer.classList.toggle('hidden');
+        const isOpen = !drawer.classList.contains('hidden');
+        
+        // Ganti ikon bars ke cross (X) jika terbuka
+        if (isOpen) {
+          menuIcon.className = 'fas fa-times text-xl transition-all';
+        } else {
+          menuIcon.className = 'fas fa-bars text-xl transition-all';
+        }
+      });
+
+      // Tutup drawer otomatis setelah salah satu link menu di-klik
+      navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          drawer.classList.add('hidden');
+          menuIcon.className = 'fas fa-bars text-xl';
+        });
+      });
+
+      // 2. Sinkronisasi Cincin Skor Sirkular Ring di Layar HP
+      const mobileRing = document.getElementById('result-stroke-ring-mobile');
+      if (mobileRing) {
+        // Mengikuti alur fungsi ring utama di script utama Anda jika diperlukan
+        mobileRing.style.strokeDashoffset = "390"; 
+      }
+    </script>
+  </body>
+</html>

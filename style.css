@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+@keyframes glow {
+    0%,100% {
+        text-shadow: 0 0 5px #f97316;
+    }
+    50% {
+        text-shadow:
+            0 0 10px #f97316,
+            0 0 20px #f97316,
+            0 0 30px #f97316;
+    }
+}
+
+.animate-glow {
+    animation: glow 2.5s infinite;
+}
+
+/* Floating Badge */
+@keyframes float {
+    0%,100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Running Text */
+@keyframes marquee {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+.animate-marquee {
+    animation: marquee 20s linear infinite;
+}
+
+@keyframes spin-slow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes float-slow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(10deg); }
+        }
+        .animate-spin-slow {
+            animation: spin-slow 20s linear infinite;
+        }
+        .animate-float-slow {
+            animation: float-slow 6s ease-in-out infinite;
+        }
+        .animate-text-gradient {
+            background-size: 200% auto;
+            animation: text-gradient 4s linear infinite;
+        }
+        @keyframes text-gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .glow-effect {
+            transition: box-shadow 0.3s ease;
+        }
+        .glow-effect:hover {
+            box-shadow: 0 25px 50px -12px rgba(245, 158, 11, 0.25);
+        }
