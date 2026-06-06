@@ -38,7 +38,7 @@
         <input 
           type="text" 
           id="search-input-desktop"
-          placeholder="Cari materi AWS..." 
+          placeholder="Cari materi AWS Lambda..." 
           class="w-full bg-slate-950/60 border border-slate-800 rounded-xl pl-9 pr-4 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/10 transition-all duration-300"
           onkeyup="handleSearch(event)"
         />
@@ -66,7 +66,7 @@
       <input 
         type="text" 
         id="search-input-mobile"
-        placeholder="Cari materi AWS..." 
+        placeholder="Cari materi AWS Lambda..." 
         class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 transition-all"
         onkeyup="handleSearch(event)"
       />
@@ -402,96 +402,105 @@
 
 
     <section id="kuis" class="py-12 md:py-20 px-4 container mx-auto max-w-3xl">
-      <div class="text-center mb-8 md:mb-12" data-aos="fade-up">
-        <h2 class="text-2xl md:text-3xl font-bold text-slate-900">Uji Pemahaman Anda</h2>
-        <p class="text-slate-600 text-sm md:text-base mt-2">
-          Selesaikan kuis interaktif seputar AWS Lambda berikut.
-        </p>
+  <div class="text-center mb-8 md:mb-12" data-aos="fade-up">
+    <h2 class="text-2xl md:text-3xl font-bold text-slate-900">Uji Pemahaman Anda</h2>
+    <p class="text-slate-600 text-sm md:text-base mt-2">
+      Selesaikan kuis interaktif seputar AWS Lambda berikut.
+    </p>
+
+    <div class="inline-flex items-center justify-center gap-2.5 bg-amber-50 border border-amber-200/80 px-4 py-2 rounded-2xl mt-4 max-w-xl mx-auto shadow-sm transition duration-300 hover:shadow-md">
+      <div class="flex-shrink-0 bg-amber-500 text-white w-6 h-6 rounded-lg flex items-center justify-center animate-pulse">
+        <i class="fas fa-lightbulb text-xs"></i>
+      </div>
+      <p class="text-xs text-amber-900 text-left leading-relaxed font-medium">
+        <strong class="text-amber-600">Tips Kuis:</strong> baca ulang materi atau hitung metriknya di kalkulator biaya!
+      </p>
+    </div>
+  </div>
+
+  <div
+    class="bg-white p-5 sm:p-6 md:p-8 rounded-2xl shadow-xl border border-slate-200 overflow-hidden"
+    data-aos="fade-up"
+    data-aos-delay="100"
+  >
+    <div id="quiz-progress-container" class="w-full bg-slate-100 h-2 rounded-full mb-5 md:mb-6 overflow-hidden">
+      <div id="quiz-progress" class="bg-blue-500 h-full w-1/3 transition-all duration-500 ease-out"></div>
+    </div>
+
+    <div id="quiz-box" class="transition-opacity duration-300">
+      <div class="flex justify-between items-center mb-2.5">
+        <span id="quiz-number" class="text-[10px] sm:text-xs font-semibold uppercase text-blue-600 tracking-wider">Pertanyaan 1 dari 3</span>
+        <span id="quiz-feedback-badge" class="hidden text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider"></span>
+      </div>
+      <h3 id="quiz-question" class="text-lg md:text-xl font-bold text-slate-900 mb-5 md:mb-6 leading-snug">
+        Loading pertanyaan...
+      </h3>
+
+      <div id="quiz-options" class="space-y-3">
       </div>
 
-      <div
-        class="bg-white p-5 sm:p-6 md:p-8 rounded-2xl shadow-xl border border-slate-200 overflow-hidden"
-        data-aos="fade-up"
-        data-aos-delay="100"
+      <div class="mt-6 md:mt-8 flex justify-end">
+        <button
+          id="btn-next"
+          onclick="nextQuestion()"
+          class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-2.5 rounded-xl transition-all duration-300 disabled:opacity-50 active:scale-95 flex items-center justify-center text-sm md:text-base"
+          disabled
+        >
+          Lanjut <i class="fas fa-arrow-right ml-2 text-xs"></i>
+        </button>
+      </div>
+    </div>
+
+    <div id="result-box" class="hidden text-center py-4 md:py-6 opacity-0 transition-all duration-700 transform scale-95">
+      <div class="inline-flex items-center space-x-2 bg-indigo-50 border border-indigo-200 px-3.5 py-1.5 rounded-full mb-5">
+        <i class="fas fa-award text-indigo-600 animate-pulse text-xs"></i>
+        <span id="result-badge-text" class="text-[10px] font-bold uppercase tracking-widest text-indigo-800">Evaluasi Selesai</span>
+      </div>
+
+      <h3 class="text-2xl font-black text-slate-900 mb-1.5 tracking-tight">Performa Belajar Anda</h3>
+      <p class="text-slate-500 text-xs md:text-sm max-w-xs sm:max-w-md mx-auto mb-6 md:mb-8">
+        Berikut adalah hasil evaluasi pemahaman arsitektur serverless AWS Lambda Anda.
+      </p>
+
+      <div class="relative w-36 h-36 md:w-40 md:h-40 mx-auto mb-6 md:mb-8 flex items-center justify-center">
+        <svg class="w-full h-full transform -rotate-90">
+          <circle cx="72" cy="72" r="62" class="stroke-slate-100 fill-none md:hidden" stroke-width="8" />
+          <circle id="result-stroke-ring-mobile" cx="72" cy="72" r="62" class="stroke-indigo-600 fill-none transition-all duration-1000 ease-out md:hidden" stroke-width="8" stroke-dasharray="390" stroke-dashoffset="390" stroke-linecap="round" />
+          
+          <circle cx="80" cy="80" r="70" class="stroke-slate-100 fill-none hidden md:block" stroke-width="10" />
+          <circle id="result-stroke-ring" cx="80" cy="80" r="70" class="stroke-indigo-600 fill-none transition-all duration-1000 ease-out hidden md:block" stroke-width="10" stroke-dasharray="440" stroke-dashoffset="440" stroke-linecap="round" />
+        </svg>
+        <div class="absolute text-center">
+          <span id="quiz-score" class="text-3xl md:text-5xl font-black text-slate-900 tracking-tight">0</span>
+          <span class="block text-[9px] md:text-[10px] uppercase tracking-wider font-bold text-slate-400 mt-0.5">Skor Total</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-3 gap-2.5 max-w-sm sm:max-w-md mx-auto mb-8">
+        <div id="benar" class="bg-emerald-50/60 border border-emerald-100 p-2 sm:p-3 rounded-xl text-center">
+          <span class="block text-[10px] font-semibold text-emerald-800 mb-0.5"><i class="fas fa-check text-emerald-600 mr-0.5"></i> Benar</span>
+          <span id="stat-correct" class="text-base font-bold text-emerald-950">0</span>
+        </div>
+        <div id="salah" class="bg-rose-50/60 border border-rose-100 p-2 sm:p-3 rounded-xl text-center">
+          <span class="block text-[10px] font-semibold text-rose-800 mb-0.5"><i class="fas fa-times text-rose-600 mr-0.5"></i> Salah</span>
+          <span id="stat-wrong" class="text-base font-bold text-rose-950">0</span>
+        </div>
+        <div id="akurasi" class="bg-amber-50/60 border border-amber-100 p-2 sm:p-3 rounded-xl text-center">
+          <span class="block text-[10px] font-semibold text-amber-800 mb-0.5"><i class="fas fa-bullseye text-amber-600 mr-0.5"></i> Akurasi</span>
+          <span id="stat-accuracy" class="text-base font-bold text-amber-950">0%</span>
+        </div>
+      </div>
+
+      <button
+        onclick="resetQuiz()"
+        class="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 text-white font-bold px-8 py-3.5 rounded-xl shadow-lg transition transform hover:-translate-y-0.5 active:scale-95 inline-flex items-center justify-center space-x-2 text-sm"
       >
-        <div id="quiz-progress-container" class="w-full bg-slate-100 h-2 rounded-full mb-5 md:mb-6 overflow-hidden">
-          <div id="quiz-progress" class="bg-blue-500 h-full w-1/3 transition-all duration-500 ease-out"></div>
-        </div>
-
-        <div id="quiz-box" class="transition-opacity duration-300">
-          <div class="flex justify-between items-center mb-2.5">
-            <span id="quiz-number" class="text-[10px] sm:text-xs font-semibold uppercase text-blue-600 tracking-wider">Pertanyaan 1 dari 3</span>
-            <span id="quiz-feedback-badge" class="hidden text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider"></span>
-          </div>
-          <h3 id="quiz-question" class="text-lg md:text-xl font-bold text-slate-900 mb-5 md:mb-6 leading-snug">
-            Loading pertanyaan...
-          </h3>
-
-          <div id="quiz-options" class="space-y-3">
-            </div>
-
-          <div class="mt-6 md:mt-8 flex justify-end">
-            <button
-              id="btn-next"
-              onclick="nextQuestion()"
-              class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-2.5 rounded-xl transition-all duration-300 disabled:opacity-50 active:scale-95 flex items-center justify-center text-sm md:text-base"
-              disabled
-            >
-              Lanjut <i class="fas fa-arrow-right ml-2 text-xs"></i>
-            </button>
-          </div>
-        </div>
-
-        <div id="result-box" class="hidden text-center py-4 md:py-6 opacity-0 transition-all duration-700 transform scale-95">
-          <div class="inline-flex items-center space-x-2 bg-indigo-50 border border-indigo-200 px-3.5 py-1.5 rounded-full mb-5">
-            <i class="fas fa-award text-indigo-600 animate-pulse text-xs"></i>
-            <span id="result-badge-text" class="text-[10px] font-bold uppercase tracking-widest text-indigo-800">Evaluasi Selesai</span>
-          </div>
-
-          <h3 class="text-2xl font-black text-slate-900 mb-1.5 tracking-tight">Performa Belajar Anda</h3>
-          <p class="text-slate-500 text-xs md:text-sm max-w-xs sm:max-w-md mx-auto mb-6 md:mb-8">
-            Berikut adalah hasil evaluasi pemahaman arsitektur serverless AWS Lambda Anda.
-          </p>
-
-          <div class="relative w-36 h-36 md:w-40 md:h-40 mx-auto mb-6 md:mb-8 flex items-center justify-center">
-            <svg class="w-full h-full transform -rotate-90">
-              <circle cx="72" cy="72" r="62" class="stroke-slate-100 fill-none md:hidden" stroke-width="8" />
-              <circle id="result-stroke-ring-mobile" cx="72" cy="72" r="62" class="stroke-indigo-600 fill-none transition-all duration-1000 ease-out md:hidden" stroke-width="8" stroke-dasharray="390" stroke-dashoffset="390" stroke-linecap="round" />
-              
-              <circle cx="80" cy="80" r="70" class="stroke-slate-100 fill-none hidden md:block" stroke-width="10" />
-              <circle id="result-stroke-ring" cx="80" cy="80" r="70" class="stroke-indigo-600 fill-none transition-all duration-1000 ease-out hidden md:block" stroke-width="10" stroke-dasharray="440" stroke-dashoffset="440" stroke-linecap="round" />
-            </svg>
-            <div class="absolute text-center">
-              <span id="quiz-score" class="text-3xl md:text-5xl font-black text-slate-900 tracking-tight">0</span>
-              <span class="block text-[9px] md:text-[10px] uppercase tracking-wider font-bold text-slate-400 mt-0.5">Skor Total</span>
-            </div>
-          </div>
-
-          <div class="grid grid-cols-3 gap-2.5 max-w-sm sm:max-w-md mx-auto mb-8">
-            <div id="benar" class="bg-emerald-50/60 border border-emerald-100 p-2 sm:p-3 rounded-xl text-center">
-              <span class="block text-[10px] font-semibold text-emerald-800 mb-0.5"><i class="fas fa-check text-emerald-600 mr-0.5"></i> Benar</span>
-              <span id="stat-correct" class="text-base font-bold text-emerald-950">0</span>
-            </div>
-            <div id="salah" class="bg-rose-50/60 border border-rose-100 p-2 sm:p-3 rounded-xl text-center">
-              <span class="block text-[10px] font-semibold text-rose-800 mb-0.5"><i class="fas fa-times text-rose-600 mr-0.5"></i> Salah</span>
-              <span id="stat-wrong" class="text-base font-bold text-rose-950">0</span>
-            </div>
-            <div id="akurasi" class="bg-amber-50/60 border border-amber-100 p-2 sm:p-3 rounded-xl text-center">
-              <span class="block text-[10px] font-semibold text-amber-800 mb-0.5"><i class="fas fa-bullseye text-amber-600 mr-0.5"></i> Akurasi</span>
-              <span id="stat-accuracy" class="text-base font-bold text-amber-950">0%</span>
-            </div>
-          </div>
-
-          <button
-            onclick="resetQuiz()"
-            class="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 text-white font-bold px-8 py-3.5 rounded-xl shadow-lg transition transform hover:-translate-y-0.5 active:scale-95 inline-flex items-center justify-center space-x-2 text-sm"
-          >
-            <i class="fas fa-redo-alt text-xs"></i>
-            <span>Ulangi Evaluasi Kuis</span>
-          </button>
-        </div>
-      </div>
-    </section>
+        <i class="fas fa-redo-alt text-xs"></i>
+        <span>Ulangi Evaluasi Kuis</span>
+      </button>
+    </div>
+  </div>
+</section>
 
     <footer class="relative mt-12 md:mt-20 bg-gradient-to-br from-slate-950 via-slate-900 to-gray-950 text-white overflow-hidden">
       <div class="absolute top-0 left-0 w-48 md:w-72 h-48 md:h-72 bg-orange-500/10 rounded-full blur-3xl"></div>
